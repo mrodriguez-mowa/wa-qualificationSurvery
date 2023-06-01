@@ -23,7 +23,15 @@ const DisclosureComp = () => {
         },
         {
             title: "Asesoramiento",
-            description: "Indica dudas o que requiere más información con su deuda. Se"
+            description: "Indica dudas o que requiere más información con su deuda. Se incluyen nombres, celulares, fechas, horas y documentos que no están acompañados de más texto"
+        },
+        {
+            title: "Verificar Número",
+            description: "Indica que no es, no conoce o que el número no pertenece a la persona en mención"
+        },
+        {
+          title: "No deseado",
+          description: "Insultos, respuestas sin coherencia, o mensajes sin relación a la cobranza"
         }
     ]
 
