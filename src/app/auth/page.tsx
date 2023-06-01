@@ -1,6 +1,6 @@
-import Link from "next/link"
 import React from "react"
 import SignIn from "./sign-in/page"
+import SignUp from "./sign-up/page"
 
 const AuthLayout = () => {
   return (
