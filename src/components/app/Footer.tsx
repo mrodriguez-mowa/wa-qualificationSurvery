@@ -1,22 +1,29 @@
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
+import Modal from './modal/Modal'
 
 
 const Footer = () => {
 
   const [isOpen, setIsOpen] = useState(false)
+  
+  const handleModal = (value:boolean) =>{
+    setIsOpen(value);
+  }
 
   return (
     <>
 
-      <div className='relative w-full min-h-[70px]'>
+      <Modal open={handleModal} initial={isOpen} />
 
-        <div className='absolute left-0 bottom-0 flex items-center justify-around w-60 bg-sky-400 py-3 text-gray-100 rounded-r-lg'>
-          <div className='hover:cursor-pointer' onClick={() => {
-            setIsOpen(!open)
+      <div className='relative w-full'>
+
+        <div className='absolute cursor-pointer left-0 bottom-0 flex flex-row md:flex-col items-center justify-around w-full md:w-60 bg-sky-400 py-3 text-gray-100 rounded-none md:rounded-r-lg' onClick={() => {
+            setIsOpen(!isOpen)
           }}>
-            <h1>¿Necesitas Ayuda?</h1>
-            <span className='text-sm'>Haz click aquí</span>
-          </div>
+          
+            <h1 className="text-sm">Recuerda las tipificaciones</h1>
+            <span className='text-sm font-semibold text-sky-800'>Haz click aquí</span>
+          
         </div>
 
       </div>
