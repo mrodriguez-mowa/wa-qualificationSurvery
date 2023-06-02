@@ -1,4 +1,5 @@
 "use client"
+
 import React, { useState } from "react"
 import SignIn from "../../components/auth/sign-in/SignIn"
 import SignUp from "../../components/auth/sign-up/SignUp"
