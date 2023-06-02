@@ -2,13 +2,39 @@
 
 import Image from "next/image";
 import Header from "@/components/app/Header";
-import { JSX, SVGProps, useState, Fragment } from "react";
+import { JSX, SVGProps, useEffect, useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import Footer from "@/components/app/Footer";
 
+import { useDispatch, useSelector } from "react-redux"
+import { AppDispatch, RootState } from "@/redux/store"
+
+import { toast } from "react-hot-toast"
+import Loader from "@/components/utils/Loader";
+
+import { useRouter } from "next/navigation"
 
 export default function Home() {
   const [type, setType] = useState("");
+  const dispatch: AppDispatch = useDispatch();
+
+  const { push } = useRouter();
+
+  const [showSite, setShowSite] = useState(false);
+
+  const { isAuth, user } = useSelector((state: RootState) => state.auth)
+
+  useEffect(() => {
+    if (!isAuth) {
+      toast.error("Inicia sesión primero")
+      setTimeout(()=>{
+        push("/auth")
+      }, 1500)
+    } else {
+      toast.success(`Bienvenido ${user}`)
+    }
+  }, [])
+
 
   const options: Array<string> = [
     "Prevención",
@@ -39,8 +65,7 @@ export default function Home() {
 
   return (
     <main className="w-full h-screen">
-
-      <div className="container flex items-center justify-center mx-auto min-h-full ">
+      {showSite ? <><div className="container flex items-center justify-center mx-auto min-h-full ">
         <div className=" w-full">
           <Header title="¿Qué calificación corresponde?" />
 
@@ -100,9 +125,11 @@ export default function Home() {
           </div>
 
         </div>
-        
+
       </div>
-      <Footer />
+        <Footer />
+      </> : <Loader />}
+
     </main>
   );
 }
