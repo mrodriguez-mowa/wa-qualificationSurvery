@@ -1,8 +1,16 @@
-import React from "react"
-import SignIn from "./sign-in/page"
-import SignUp from "./sign-up/page"
+"use client"
+import React, { useState } from "react"
+import SignIn from "../../components/auth/sign-in/SignIn"
+import SignUp from "../../components/auth/sign-up/SignUp"
 
 const AuthLayout = () => {
+
+  const [isSignIn, setIsSignIn] = useState(true)
+
+  const handleChangeForm = (value:boolean) => {
+    setIsSignIn(value);
+  }
+
   return (
     <div className="w-full h-screen text-sm flex flex-col justify-center items-center">
       <div className="flex justify-between flex-col md:flex-row w-full h-full">
@@ -11,8 +19,8 @@ const AuthLayout = () => {
         </div>
         <h2 className="w-full bg-dark-primary md:w-4/12 h-full flex flex-col items-center justify-center">
           <img className="h-20" src="/assets/mowa_logo.png" alt="logo_mowa" />
-          <SignIn />
-          </h2>
+          {isSignIn ? <SignIn changeForm={handleChangeForm} /> : <SignUp  changeForm={handleChangeForm}/>}
+        </h2>
       </div>
     </div>
   )
