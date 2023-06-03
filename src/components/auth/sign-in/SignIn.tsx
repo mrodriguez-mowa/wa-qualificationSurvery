@@ -35,8 +35,16 @@ const SignIn = ({ changeForm }: ISignIn) => {
 
     toast.promise(response, {
       loading: "Cargando...",
-      success: () => `¡Bienvenido ${data.username}!`,
-      error: () => "Ha ocurrido un error"
+      success: (res) => {  
+        return `${res.data.message}`
+      },
+      error: (res) => {
+        return `¡Ups! Error inesperado`
+      }
+    }, {
+      success: {
+        icon: "🤖"
+      }
     })
   }
 
