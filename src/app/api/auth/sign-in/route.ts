@@ -13,12 +13,16 @@ export async function POST(request: Request) {
         await connection.connect()
 
         try {
-            const res = await connection.query("SELECT username, password, name from public.users WHERE username = $1 AND password = $2", [username, password])
+            const res = await connection.query("SELECT id, username, password, name from public.users WHERE username = $1 AND password = $2", [username, password])
             if (res.rowCount > 0) {
                 if (res.rows[0].username == username && res.rows[0].password == password) {
                     return NextResponse.json({
                         detail: "LOGGED",
-                        message: "¡Bienvenido!"
+                        message: "¡Bienvenido!",
+                        values: {
+                            id: res.rows[0].id,
+                            username: res.rows[0].username
+                        }
                     }, {
                         status: 200
                     });
@@ -37,7 +41,6 @@ export async function POST(request: Request) {
 
         } catch (e) {
             console.log(e)
-
             return NextResponse.json({
                 detail: "ERROR_BD",
                 message: "¡Ups! Error inesperado"
@@ -46,6 +49,7 @@ export async function POST(request: Request) {
             await connection.end()
         }
     } catch (e) {
+        console.log(e)
         return NextResponse.json({
             detail: "ERROR_PROCESS",
             message: "¡Ups! Error inesperado"

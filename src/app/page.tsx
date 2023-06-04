@@ -13,16 +13,19 @@ import { toast } from "react-hot-toast"
 import Loader from "@/components/utils/Loader";
 
 import { useRouter } from "next/navigation"
+import axios from "axios";
 
 export default function Home() {
-  const [type, setType] = useState("");
-  const dispatch: AppDispatch = useDispatch();
+  const [type, setType] = useState(null);
 
   const { push } = useRouter();
 
-  const [showSite, setShowSite] = useState(false);
-
-  const { isAuth, user } = useSelector((state: RootState) => state.auth)
+  const { isAuth } = useSelector((state: RootState) => state.auth)
+  
+  const [message, setMessage] = useState({
+    text: "",
+    id: 0
+  })
 
   useEffect(() => {
     if (!isAuth) {
@@ -30,11 +33,27 @@ export default function Home() {
       setTimeout(()=>{
         push("/auth")
       }, 1500)
-    } else {
-      toast.success(`Bienvenido ${user}`)
-    }
+    } 
   }, [])
 
+  const fetchMessage = async () => {
+    try {
+      const res = await axios.get('/api/messages')
+      setMessage({
+        text: res.data.values.message.replace("%20", " "),
+        id: res.data.values.id
+      })
+      console.log(res)
+    } catch (error) {
+      toast.error("No se pudo traer el mensaje")
+    } 
+  }
+
+  useEffect(()=>{
+    if (isAuth) {
+      fetchMessage()
+    }
+  }, [])
 
   const options: Array<string> = [
     "Prevención",
@@ -63,14 +82,19 @@ export default function Home() {
     );
   };
 
+
+
   return (
-    <main className="w-full h-screen">
-      {showSite ? <><div className="container flex items-center justify-center mx-auto min-h-full ">
-        <div className=" w-full">
+    <main className="w-full h-screen bg-light-white">
+      {isAuth ? <><div className="container  flex items-center justify-center mx-auto min-h-full ">
+        <form onSubmit={async (e)=>{
+          e.preventDefault()
+          await fetchMessage()
+        }} className=" w-full">
           <Header title="¿Qué calificación corresponde?" />
 
-          <p className="text-lg py-4 my-6 border-gray-200 border-2 text-gray-700 rounded-lg bg-gray-100 w-10/12 md:w-6/12 mx-auto font-semibold text-center">
-            ¿En dónde puedo pagar?
+          <p className="text-lg py-4 px-2 my-6 border-gray-200 border-2 text-gray-700 rounded-lg bg-gray-200 w-10/12 md:w-6/12 mx-auto font-semibold text-center">
+            {message.text}
           </p>
 
           <div>
@@ -86,7 +110,7 @@ export default function Home() {
                         : ""
                       }
       ${checked
-                        ? "bg-gray-500 bg-opacity-75 text-white font-semibold"
+                        ? "bg-dark-primary bg-opacity-75 text-white font-semibold"
                         : "bg-white border-2 border-gray-100"
                       }
         relative flex cursor-pointer rounded-lg px-5 py-4 my-3 focus:outline-none w-10/12 md:w-6/12 mx-auto`
@@ -121,10 +145,12 @@ export default function Home() {
 
           </div>
           <div className="text-center">
-            <button className="bg-gray-100 text-gray-900 py-2 rounded-lg w-10/12 my-4 md:w-6/12  font-medium shadow-md text-sm ">Siguiente</button>
+            <button 
+            disabled={type == null ? true : false}
+            className="bg-primary hover:opacity-80 text-light-white py-2 rounded-lg w-10/12 my-4 md:w-6/12  font-medium shadow-md text-sm disabled:cursor-not-allowed">Siguiente</button>
           </div>
 
-        </div>
+        </form>
 
       </div>
         <Footer />
