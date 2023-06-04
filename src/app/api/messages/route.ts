@@ -50,5 +50,29 @@ export async function GET(request: Request) {
 
 
 export async function POST(request: Request) {
-
+    try {
+        const {id, type, userId} = await request.json()
+        console.log(id, type, userId)
+        const connection = await connectDb()
+        await connection.connect()
+        try {
+            await connection.query("UPDATE answers SET status = 2, new_type = $1, classified_at = NOW(), classified_by = $2 WHERE id = $3", [type.toUpperCase(), userId, id])
+        } catch (error) {
+            console.log(error)
+            return NextResponse.json({
+                detail: "ERROR_PROCESS",
+                message: "¡Ups! Error inesperado"
+            }, { status: 500 });
+        }
+        return NextResponse.json({
+            detail: "UPDATED_RECORD",
+            message: "Mensaje actualizado"
+        }, { status: 200 });
+    } catch (error) {
+        console.log(error)
+        return NextResponse.json({
+            detail: "ERROR_PROCESS",
+            message: "¡Ups! Error inesperado"
+        }, { status: 500 });
+    }
 }

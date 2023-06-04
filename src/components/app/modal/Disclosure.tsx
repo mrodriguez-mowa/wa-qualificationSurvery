@@ -42,8 +42,8 @@ const DisclosureComp = () => {
             types.map((element,idx)=>{
                 return (<Disclosure >
                     {({ open }) => (
-                      <div className="my-2">
-                        <Disclosure.Button key={`disclosure-${idx}`} className="flex w-full justify-between  rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
+                      <div key={`disclosure-${idx}`} className="my-2">
+                        <Disclosure.Button  className="flex w-full justify-between  rounded-lg bg-purple-100 px-4 py-2 text-left text-sm font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75">
                           <span>{element.title}</span>
                           <ChevronUpIcon
                             className={`${
