@@ -6,11 +6,11 @@ import { store } from '@/redux/store'
 import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
-
+/*
 export const metadata = {
   title: 'Tipificación Mowa',
   description: 'Web app to classify answers received by SMS',
-}
+}*/
 
 export default function RootLayout({
   children,
