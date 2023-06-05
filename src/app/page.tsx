@@ -15,6 +15,7 @@ import Loader from "@/components/utils/Loader";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { setMessageState } from "@/redux/slice/messageSlice";
+import { escape } from "querystring";
 
 export default function Home() {
   const [type, setType] = useState(null);
@@ -26,8 +27,8 @@ export default function Home() {
   const { messageText, id } = useSelector((state: RootState) => state.message);
 
   const [message, setMessage] = useState({
-    text: messageText,
-    id: id,
+    text: "",
+    id: "",
   });
 
   const [isLogged, setIsLogged] = useState(false);
@@ -87,7 +88,10 @@ export default function Home() {
           const res = await axios.get("/api/messages");
           setType(null);
 
-          setMessage(res.data.values.message.replace("%20", " "));
+          setMessage({
+            id: res.data.values.id ,
+            text:res.data.values.message.replace("%20", " ")
+          });
 
           dispatch(
             setMessageState({
@@ -96,6 +100,7 @@ export default function Home() {
             })
           );
         } else {
+          console.log("xd")
           setMessage({
             id: messageId || " owo ",
             text: messageLS || " uwu ",
@@ -127,7 +132,6 @@ export default function Home() {
   useEffect(() => {
     const logged = localStorage.getItem("isAuthenticated");
     const authValue = logged == "true";
-    console.log("first fecht")
     if (authValue) {
       fetchMessage(false);
     }
