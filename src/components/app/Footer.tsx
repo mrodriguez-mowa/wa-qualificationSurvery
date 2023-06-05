@@ -15,7 +15,7 @@ const Footer = () => {
 
       <Modal open={handleModal} initial={isOpen} />
 
-      <div className='relative w-full'>
+      <div className='relative py-10 min-h-auto w-full'>
 
         <div className='absolute cursor-pointer left-0 bottom-0 flex flex-row md:flex-col items-center justify-around w-full md:w-60 bg-dark-primary py-3 text-gray-100 rounded-none md:rounded-r-lg' onClick={() => {
             setIsOpen(!isOpen)

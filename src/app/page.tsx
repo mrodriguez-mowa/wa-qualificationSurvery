@@ -161,7 +161,7 @@ export default function Home() {
   };
 
   return (
-    <main className="w-full h-screen bg-light-white">
+    <main className="w-full h-screen min-h-screen bg-light-white">
       {isLogged ? (
         <>
           <div className="container  flex items-center justify-center mx-auto min-h-full ">

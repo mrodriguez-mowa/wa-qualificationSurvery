@@ -22,7 +22,7 @@ export default function RootLayout({
       <Provider store={store}>
 
 
-        <body className={inter.className}>
+        <body className={inter.className + " min-h-screen bg-light-white "}>
 
           <Toaster />
 

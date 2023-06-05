@@ -38,10 +38,12 @@ const SignIn = ({ changeForm }: ISignIn) => {
       
       push("/")
     } else {
+      /*
       dispatch(signInOK({
         isAuth: false,
         user: ""
       }))
+      */
       push("/auth")
     }
   }, [isAuthenticated])

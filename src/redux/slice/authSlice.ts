@@ -17,15 +17,21 @@ export const authSlice = createSlice({
         signInOK: (state: AuthState, action: PayloadAction<AuthState>) => {
             (state.isAuth = action.payload.isAuth),
                 (state.user = action.payload.user);
-                if (typeof window != undefined) {
-                    localStorage.setItem("isAuthenticated", "true")
-                    localStorage.setItem("userId", action.payload.user)
-                }
+            if (typeof window != undefined) {
+                localStorage.setItem("isAuthenticated", "true")
+                localStorage.setItem("userId", action.payload.user)
+            }
         },
         logout: (state: AuthState) => {
+            
+
+            if (typeof window != undefined) {
+                localStorage.removeItem("userId")
+                localStorage.removeItem("isAuthenticated")
+            }
+
             (state.isAuth = false), (state.user = "");
-            localStorage.removeItem("isAuthenticated")
-            localStorage.removeItem("userId")
+
         },
     },
 });
