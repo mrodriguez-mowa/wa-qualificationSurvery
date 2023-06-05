@@ -97,7 +97,7 @@ const SignIn = ({ changeForm }: ISignIn) => {
             <label className="block  text-sm font-bold mb-2" htmlFor="username">
               Usuario:
             </label>
-            <input onChange={(e: React.ChangeEvent<any>) => {
+            <input required onChange={(e: React.ChangeEvent<any>) => {
               handleInputChange(e.target)
             }} value={data.username} className="text-dark-primary placeholder:text-gray-500 appearance-none block w-full bg-gray-200   rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="username" type="text" placeholder="user@example.com" />
           </div>
@@ -105,7 +105,7 @@ const SignIn = ({ changeForm }: ISignIn) => {
             <label className="block  text-sm font-bold mb-2" htmlFor="password">
               Contraseña:
             </label>
-            <input onChange={(e: React.ChangeEvent<any>) => {
+            <input required onChange={(e: React.ChangeEvent<any>) => {
               handleInputChange(e.target)
             }} value={data.password} className="text-dark-primary placeholder:text-gray-500 appearance-none block w-full bg-gray-200   rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="password" type="password" placeholder="******************" />
           </div>
