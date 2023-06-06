@@ -102,8 +102,8 @@ export default function Home() {
         } else {
           console.log("xd")
           setMessage({
-            id: messageId || " owo ",
-            text: messageLS || " uwu ",
+            id: messageId || "  ",
+            text: messageLS || "  ",
           });
         }
       }
