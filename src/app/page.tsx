@@ -24,8 +24,6 @@ export default function Home() {
 
   const { push } = useRouter();
 
-  const { messageText, id } = useSelector((state: RootState) => state.message);
-
   const [message, setMessage] = useState({
     text: "",
     id: "",
@@ -145,6 +143,7 @@ export default function Home() {
     "Asesoramiento",
     "Verificación de número",
     "No deseado",
+    "No aplica"
   ];
 
   const CheckIcon = (
@@ -232,7 +231,7 @@ export default function Home() {
               </div>
               <div className="text-center">
                 <button
-                  disabled={type == null ? true : false}
+                  type="submit"
                   className="bg-primary hover:opacity-80 text-light-white py-2 rounded-lg w-10/12 my-4 md:w-6/12  font-medium shadow-md text-sm disabled:cursor-not-allowed"
                 >
                   Siguiente

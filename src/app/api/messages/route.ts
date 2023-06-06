@@ -56,7 +56,11 @@ export async function POST(request: Request) {
         const connection = await connectDb()
         await connection.connect()
         try {
-            await connection.query("UPDATE answers SET status = 2, new_type = $1, classified_at = NOW(), classified_by = $2 WHERE id = $3", [type.toUpperCase(), userId, id])
+            if (type) {
+                await connection.query("UPDATE answers SET status = 2, new_type = $1, classified_at = NOW(), classified_by = $2 WHERE id = $3", [type.toUpperCase(), userId, id])
+            } else {
+                await connection.query("UPDATE answers SET status = null, new_type = null WHERE id = $1", [id])
+            }
         } catch (error) {
             console.log(error)
             return NextResponse.json({

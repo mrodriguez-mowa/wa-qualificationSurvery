@@ -31,7 +31,11 @@ const DisclosureComp = () => {
         },
         {
           title: "No deseado",
-          description: "Insultos, respuestas sin coherencia, o mensajes sin relación a la cobranza"
+          description: "El cliente brinda algún insulto o menciona acoso, hostigamiento, amenaza, estafa y /o extorsión por parte de la empresa"
+        },
+        {
+          title: "No aplica",
+          description: "Respuestas que no tengan coherencia o relación con el objetivo de la campaña."
         }
     ]
 
