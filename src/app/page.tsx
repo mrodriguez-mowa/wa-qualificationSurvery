@@ -23,32 +23,10 @@ export default function Home() {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const { push } = useRouter();
-
   const [message, setMessage] = useState({
     text: "",
     id: "",
   });
-
-  // const [isLogged, setIsLogged] = useState(false);
-
-  /*
-  useEffect(() => {
-    const logged = localStorage.getItem("isAuthenticated");
-
-    const authValue = logged == "true";
-
-    setIsLogged(authValue);
-
-    if (!authValue) {
-      toast.error("Inicia sesión primero");
-      setTimeout(() => {
-        push("/auth");
-      }, 1500);
-    }
-  }, []);
-  */
-
 
   const fetchMessage = async (update: boolean) => {
     const messageLS = localStorage.getItem("messageText");

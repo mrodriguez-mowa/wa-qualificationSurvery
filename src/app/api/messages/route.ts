@@ -67,6 +67,8 @@ export async function POST(request: Request) {
                 detail: "ERROR_PROCESS",
                 message: "¡Ups! Error inesperado"
             }, { status: 500 });
+        } finally {
+            await connection.end()
         }
         return NextResponse.json({
             detail: "UPDATED_RECORD",
