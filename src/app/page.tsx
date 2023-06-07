@@ -15,7 +15,8 @@ import Loader from "@/components/utils/Loader";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { setMessageState } from "@/redux/slice/messageSlice";
-import { escape } from "querystring";
+import { AuthHOC } from "@/components/auth/AuthHOC";
+
 
 export default function Home() {
   const [type, setType] = useState<any>(null);
@@ -29,8 +30,9 @@ export default function Home() {
     id: "",
   });
 
-  const [isLogged, setIsLogged] = useState(false);
+  // const [isLogged, setIsLogged] = useState(false);
 
+  /*
   useEffect(() => {
     const logged = localStorage.getItem("isAuthenticated");
 
@@ -45,15 +47,8 @@ export default function Home() {
       }, 1500);
     }
   }, []);
-
-  /*
-  useEffect(() => {
-    setMessage({
-      id: message.id,
-      text: message.text,
-    });
-  }, [messageText, id]);
   */
+
 
   const fetchMessage = async (update: boolean) => {
     const messageLS = localStorage.getItem("messageText");
@@ -107,7 +102,7 @@ export default function Home() {
     }
   };
 
-  const onClickOption = async (chosenType:any) => {
+  const onClickOption = async (chosenType: any) => {
     // clear previous message
     const userId = localStorage.getItem("userId");
     try {
@@ -162,7 +157,8 @@ export default function Home() {
 
   return (
     <main className="w-full h-screen min-h-screen bg-light-white">
-      {isLogged ? (
+
+      <AuthHOC>
         <>
           <div className="container  flex items-center justify-center mx-auto min-h-full ">
             <div className=" w-full">
@@ -235,9 +231,9 @@ export default function Home() {
           </div>
           <Footer />
         </>
-      ) : (
-        <Loader />
-      )}
+
+      </AuthHOC>
+
     </main>
   );
 }

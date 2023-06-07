@@ -16,12 +16,11 @@ export default function Example() {
     push("/auth");
   };
 
-  /*
+  
   const redirectSite = (site: string) => {
-    alert('xddd')
-    //push(`/${site}`);
+    push(`${site}`);
   };
-  */
+
 
   return (
     <div className="absolute  right-0 text-right">
@@ -63,7 +62,7 @@ export default function Example() {
                       e.preventDefault();
                       logoutFn()
                     }}
-                    className="hover:bg-sky-500 hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                    className="hover:bg-dark-primary hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
                   >
                     <DuplicateInactiveIcon
                       className="mr-2 h-5 w-5"
@@ -73,11 +72,13 @@ export default function Example() {
                   </button>
                 )}
               </Menu.Item>
-              {/*
+
               <Menu.Item>
                 {() => (
-                  <button className="hover:bg-sky-500 hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm">
-                    <DuplicateInactiveIcon
+                  <button onClick={(e)=>{e.preventDefault()
+                    redirectSite("/reports")
+                  }} className="hover:bg-dark-primary hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm">
+                    <ReportsIcon
                       className="mr-2 h-5 w-5"
                       aria-hidden="true"
                     />
@@ -85,7 +86,6 @@ export default function Example() {
                   </button>
                 )}
               </Menu.Item>
-              */}
 
             </div>
           </Menu.Items>
@@ -119,16 +119,14 @@ function DuplicateInactiveIcon(props: any) {
   );
 }
 
-function DuplicateActiveIcon(props: any) {
+function ReportsIcon(props: any) {
   return (
-    <svg
-      {...props}
-      viewBox="0 0 20 20"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M4 4H12V12H4V4Z" fill="#00ADB5" stroke="#EEE" strokeWidth="2" />
-      <path d="M8 8H16V16H8V8Z" fill="#00ADB5" stroke="#EEE" strokeWidth="2" />
+
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="#EEE" viewBox="0 0 24 24" strokeWidth={2} stroke="#00ADB5" >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
     </svg>
+
+
+
   );
 }
