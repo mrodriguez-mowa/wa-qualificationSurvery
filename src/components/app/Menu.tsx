@@ -16,14 +16,14 @@ export default function Example() {
     push("/auth");
   };
 
-  
+
   const redirectSite = (site: string) => {
     push(`${site}`);
   };
 
 
   return (
-    <div className="absolute  right-0 text-right">
+    <div className="absolute z-30 right-0 text-right">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -75,7 +75,8 @@ export default function Example() {
 
               <Menu.Item>
                 {() => (
-                  <button onClick={(e)=>{e.preventDefault()
+                  <button onClick={(e) => {
+                    e.preventDefault()
                     redirectSite("/reports")
                   }} className="hover:bg-dark-primary hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm">
                     <ReportsIcon
@@ -83,6 +84,21 @@ export default function Example() {
                       aria-hidden="true"
                     />
                     Mi progreso
+                  </button>
+                )}
+              </Menu.Item>
+
+              <Menu.Item>
+                {() => (
+                  <button onClick={(e) => {
+                    e.preventDefault()
+                    redirectSite("/")
+                  }} className="hover:bg-dark-primary hover:text-white text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm">
+                    <HomeIcon
+                      className="mr-2 h-5 w-5"
+                      aria-hidden="true"
+                    />
+                    Cuestionario
                   </button>
                 )}
               </Menu.Item>
@@ -129,4 +145,20 @@ function ReportsIcon(props: any) {
 
 
   );
+
 }
+
+function HomeIcon(props: any) {
+  return (
+
+    <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#00ADB5" >
+      <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+    </svg>
+
+
+
+  );
+}
+
+
+
