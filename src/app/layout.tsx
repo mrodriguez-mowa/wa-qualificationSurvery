@@ -6,11 +6,6 @@ import { store } from '@/redux/store'
 import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
-/*
-export const metadata = {
-  title: 'Tipificación Mowa',
-  description: 'Web app to classify answers received by SMS',
-}*/
 
 export default function RootLayout({
   children,
@@ -20,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Provider store={store}>
-
+        
 
         <body className={inter.className + " min-h-screen bg-light-white "}>
 

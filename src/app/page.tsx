@@ -18,7 +18,7 @@ import { setMessageState } from "@/redux/slice/messageSlice";
 import { escape } from "querystring";
 
 export default function Home() {
-  const [type, setType] = useState(null);
+  const [type, setType] = useState<any>(null);
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -71,15 +71,12 @@ export default function Home() {
           text: res.data.values.message.replace("%20", " "),
         });
 
-        
         dispatch(
           setMessageState({
             id: res.data.values.id,
             messageText: res.data.values.message.replace("%20", " "),
           })
         );
-        
-
       } else {
         if (!messageId && !messageLS) {
           console.log("se trajo un mensaje");
@@ -87,8 +84,8 @@ export default function Home() {
           setType(null);
 
           setMessage({
-            id: res.data.values.id ,
-            text:res.data.values.message.replace("%20", " ")
+            id: res.data.values.id,
+            text: res.data.values.message.replace("%20", " "),
           });
 
           dispatch(
@@ -98,7 +95,7 @@ export default function Home() {
             })
           );
         } else {
-          console.log("xd")
+          console.log("xd");
           setMessage({
             id: messageId || "  ",
             text: messageLS || "  ",
@@ -110,13 +107,13 @@ export default function Home() {
     }
   };
 
-  const updateMessage = async () => {
+  const onClickOption = async (chosenType:any) => {
     // clear previous message
     const userId = localStorage.getItem("userId");
     try {
       await axios.post("/api/messages", {
         id: message.id,
-        type,
+        type: chosenType,
         userId: userId,
       });
       localStorage.removeItem("messageId");
@@ -143,7 +140,7 @@ export default function Home() {
     "Asesoramiento",
     "Verificación de número",
     "No deseado",
-    "No aplica"
+    "No aplica",
   ];
 
   const CheckIcon = (
@@ -168,13 +165,7 @@ export default function Home() {
       {isLogged ? (
         <>
           <div className="container  flex items-center justify-center mx-auto min-h-full ">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                updateMessage();
-              }}
-              className=" w-full"
-            >
+            <div className=" w-full">
               <Header title="¿Qué calificación corresponde?" />
 
               <p className="text-lg py-4 px-2 my-6 border-gray-200 border-2 text-gray-700 rounded-lg bg-gray-200 w-10/12 md:w-6/12 mx-auto font-semibold text-center">
@@ -182,45 +173,31 @@ export default function Home() {
               </p>
 
               <div>
-                <RadioGroup value={type} onChange={setType}>
+                <RadioGroup value={type}>
                   {options.map((text, idx) => {
                     return (
                       <RadioGroup.Option
                         key={`radio-${idx}`}
                         value={text}
-                        className={({ active, checked }) =>
-                          `${active
-                            ? "ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-gray-300"
-                            : ""
-                          }
-      ${checked
-                            ? "bg-dark-primary bg-opacity-75 text-white font-semibold"
-                            : "bg-white border-2 border-gray-100"
-                          }
-        relative flex cursor-pointer rounded-lg px-5 py-4 my-3 focus:outline-none w-10/12 md:w-6/12 mx-auto`
+                        onClick={() => {
+                          onClickOption(text)
+                        }}
+                        className={() =>
+                          `hover:bg-dark-primary text-slate-700 hover:text-white hover:bg-opacity-75  bg-white border-2 border-gray-100 font-semibold relative flex cursor-pointer rounded-lg px-5 py-4 my-3 focus:outline-none w-10/12 md:w-6/12 mx-auto`
                         }
                       >
-                        {({ active, checked }) => (
+                        {() => (
                           <>
                             <div className="flex w-full items-center justify-between">
                               <div className="flex items-center">
                                 <div className="text-sm">
                                   <RadioGroup.Label
                                     as="p"
-                                    className={` ${checked
-                                        ? "text-white font-medium"
-                                        : " text-slate-700"
-                                      }`}
                                   >
                                     {text}
                                   </RadioGroup.Label>
                                 </div>
                               </div>
-                              {checked && (
-                                <div className="shrink-0 text-white">
-                                  <CheckIcon className="h-6 w-6" />
-                                </div>
-                              )}
                             </div>
                           </>
                         )}
@@ -231,13 +208,30 @@ export default function Home() {
               </div>
               <div className="text-center">
                 <button
-                  type="submit"
-                  className="bg-primary hover:opacity-80 text-light-white py-2 rounded-lg w-10/12 my-4 md:w-6/12  font-medium shadow-md text-sm disabled:cursor-not-allowed"
+                  onClick={() => {
+                    onClickOption(null);
+                  }}
+                  type="button"
+                  className="bg-primary mx-auto hover:opacity-80 flex flex-row justify-center items-center text-light-white py-2 rounded-lg w-10/12 my-4 md:w-6/12  font-medium shadow-md text-sm disabled:cursor-not-allowed"
                 >
-                  Siguiente
+                  Omitir
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6 mx-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                    />
+                  </svg>
                 </button>
               </div>
-            </form>
+            </div>
           </div>
           <Footer />
         </>
