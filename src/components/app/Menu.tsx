@@ -76,7 +76,8 @@ export default function Example() {
                   </button>
                 )}
               </Menu.Item>
-
+              
+              {/** 
               {isAdmin ? (<Menu.Item>
                 {() => (
                   <button onClick={(e) => {
@@ -91,6 +92,8 @@ export default function Example() {
                   </button>
                 )}
               </Menu.Item>) : null}
+              
+              */}
 
               <Menu.Item>
                 {() => (
