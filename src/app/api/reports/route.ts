@@ -12,35 +12,36 @@ export async function POST(request: Request) {
         const connection = await connectDb()
         await connection.connect()
         try {
+
+            const userData = await connection.query(`
+            SELECT * FROM users WHERE id = $1
+            `, [id])
+
+            
+
             const res = await connection.query(`
-            SELECT 
-                COUNT(a.id) AS classified_today,
-                (SELECT 
-                    COUNT(a.id)
-                FROM
-                    answers a
-                INNER JOIN users u ON u.id = a.classified_by
-                WHERE
-                    u.id = $1
-                        AND status = '2') AS classified_total,
-                u.name,
-                u.lastname
-            FROM
-                answers a
-            INNER JOIN users u ON u.id = a.classified_by
-            WHERE
-                u.id = $1
-                    AND date_trunc('day', classified_at) = CURRENT_DATE 
-                    AND status = '2'
-            GROUP BY
-                u.name,
-                u.lastname;
+            SELECT COUNT(A.ID) AS CLASSIFIED_TODAY,
+                (SELECT COUNT(A.ID)
+                    FROM ANSWERS A
+                    WHERE A.CLASSIFIED_BY = $1
+                    AND STATUS = '2') AS CLASSIFIED_TOTAL
+            FROM ANSWERS A
+            WHERE A.CLASSIFIED_BY = $1
+                AND DATE_TRUNC('day',
+                CLASSIFIED_AT) = CURRENT_DATE
+                AND STATUS = '2'
             `, [id])
 
             if (res.rowCount > 0) {
                
                 return NextResponse.json({
-                    values: res.rows[0]
+                    // values: res.rows[0],
+                    values: {
+                        classified_today: res.rows[0].classified_today,
+                        classified_total: res.rows[0].classified_total,
+                        name: userData.rows[0].name,
+                        lastname: userData.rows[0].lastname
+                    }
                 })
             } else {
                 return NextResponse.json({
