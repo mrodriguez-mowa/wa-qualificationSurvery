@@ -13,7 +13,7 @@ export async function POST(request: Request) {
         await connection.connect()
 
         try {
-            const res = await connection.query("SELECT id, username, password, name from public.users WHERE username = $1 AND password = $2", [username, password])
+            const res = await connection.query("SELECT id, username, password, name, is_admin from public.users WHERE username = $1 AND password = $2", [username, password])
             if (res.rowCount > 0) {
                 if (res.rows[0].username == username && res.rows[0].password == password) {
                     return NextResponse.json({
@@ -21,7 +21,8 @@ export async function POST(request: Request) {
                         message: "¡Bienvenido!",
                         values: {
                             id: res.rows[0].id,
-                            username: res.rows[0].username
+                            username: res.rows[0].username,
+                            isAdmin: res.rows[0].is_admin
                         }
                     }, {
                         status: 200
