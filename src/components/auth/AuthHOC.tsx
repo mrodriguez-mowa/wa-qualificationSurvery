@@ -19,7 +19,9 @@ export const AuthHOC = ({children}: any) => {
         setIsLogged(authValue);
 
         if (!authValue) {
-            toast.error("Inicia sesión primero");
+            toast.error("Inicia sesión primero", {
+                id: "error_auth"
+            });
             setTimeout(() => {
                 push("/auth");
             }, 1500);

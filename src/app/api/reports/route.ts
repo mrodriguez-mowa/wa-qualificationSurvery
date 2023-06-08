@@ -22,8 +22,7 @@ export async function POST(request: Request) {
                 INNER JOIN users u ON u.id = a.classified_by
                 WHERE
                     u.id = $1
-                        AND date_trunc('day', classified_at) = CURRENT_DATE - 1
-                        AND status = '2') AS classified_yesterday,
+                        AND status = '2') AS classified_total,
                 u.name,
                 u.lastname
             FROM
@@ -31,7 +30,7 @@ export async function POST(request: Request) {
             INNER JOIN users u ON u.id = a.classified_by
             WHERE
                 u.id = $1
-                    AND date_trunc('day', classified_at) = CURRENT_DATE
+                    AND date_trunc('day', classified_at) = CURRENT_DATE 
                     AND status = '2'
             GROUP BY
                 u.name,
