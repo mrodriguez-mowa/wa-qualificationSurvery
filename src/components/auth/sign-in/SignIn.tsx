@@ -67,15 +67,17 @@ const SignIn = ({ changeForm }: ISignIn) => {
       success: (res) => {
         dispatch(signInOK({
           isAuth: true,
-          user: `${res.data.values.id}`
+          user: `${res.data.values.id}`,
+          isAdmin: res.data.values.isAdmin
         }))
         setIsAuthenticated(true)
         return `${res.data.message}`
       },
       error: () => {
         dispatch(signInOK({
-          isAuth: true,
-          user: ""
+          isAuth: false,
+          user: "",
+          isAdmin: false
         }))
         setIsAuthenticated(false)
         return `¡Ups! Error inesperado`
