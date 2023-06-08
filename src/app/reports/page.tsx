@@ -9,7 +9,7 @@ import ProgressBar from "react-customizable-progressbar"
 
 import "./reports.css"
 
-const page = () => {
+const Report = () => {
 
     const [data, setData] = useState<any>(null)
 
@@ -44,12 +44,12 @@ const page = () => {
                                     radius={75}
                                     className='mx-auto'
                                     strokeColor="#5d9cec"
-                                    children={
-                                        <span className='your-indicator font-semibold'>
+                                    
+                                > 
+                                <span className='your-indicator font-semibold'>
                                             {Math.floor((data.classified_today / 10) * 100)} %
                                         </span>
-                                    }
-                                />
+                                 </ProgressBar>
 
 
                                 <div className='bg-sky-300 mt-4 mb-8 relative shadow-md justify-around items-center flex w-10/12 mx-auto md:w-3/12 py-5 rounded-lg'>
@@ -60,8 +60,8 @@ const page = () => {
                                     </span>
 
                                     <div>
-                                        <p className='text-sky-500 text-sm'> Mensajes calificados <strong>hoy</strong>  </p>
-                                        <p className='text-sky-800 font-semibold text-xl'>{data.classified_today}</p>
+                                        <p className='text-sky-600 text-sm'> Mensajes calificados <strong>hoy</strong>  </p>
+                                        <p className='text-sky-800 text-center font-semibold text-xl'>{data.classified_today}</p>
                                     </div>
                                 </div>
 
@@ -90,4 +90,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Report
