@@ -9,8 +9,7 @@ export async function GET (request: NextRequest) {
         await connection.connect()
         try {
 
-            const res = await connection.query(`y
-            `)
+            const res = await connection.query(`select count(u.*) as total, CONCAT(u.name, ' ', u.lastname) as new_type from answers a inner join users u on u.id = a.classified_by group by u.name, u.lastname`)
 
             return NextResponse.json({
                 values: res.rows
