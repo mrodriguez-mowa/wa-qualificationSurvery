@@ -179,7 +179,7 @@ const Admin = () => {
                         <div className='w-11/12 grid md:grid-cols-2 grid-cols-1 auto-rows-auto'>
                             {dataMessages.map((el: any, idx: number) => {
                                 return (
-                                    <div className={`${styles[idx].bg} mt-4 mb-8  relative shadow-md justify-around items-center flex w-10/12 mx-auto  py-5 rounded-lg`}>
+                                    <div key={`stats-card-${idx}`} className={`${styles[idx].bg} mt-4 mb-8  relative shadow-md justify-around items-center flex w-10/12 mx-auto  py-5 rounded-lg`}>
                                         <span className={`rounded-full ${styles[idx].iconText} px-2 py-2 ${styles[idx].iconBg}`}>
                                             {styles[idx].icon}
 
