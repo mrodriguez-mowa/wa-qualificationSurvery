@@ -1,10 +1,23 @@
 import React from 'react'
 
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import {   Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 
 const PieChart = (props: any) => {
@@ -12,12 +25,27 @@ const PieChart = (props: any) => {
 
     // const data = [["Tipificación", "Cantidad"]]
 
+     const options = {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          position: 'top' as const,
+        },
+        title: {
+          display: true,
+          text: props.title,
+        },
+      },
+    };
+    
+
      const data = {
-        labels: quantities.map((el:any)=>el.new_type),
+        labels: quantities.map((el:any)=>el.new_type.toUpperCase()),
         datasets: [
           {
-            label: '# Respuestas',
-            data: [12, 19, 3, 5, 2, 3],
+            label: props.label,
+            data: quantities.map((el:any)=>parseInt(el.total)),
             backgroundColor: [
               'rgba(255, 99, 132, 0.4)',
               'rgba(54, 162, 235, 0.4)',
@@ -34,7 +62,7 @@ const PieChart = (props: any) => {
               'rgba(153, 102, 255, 1)',
               'rgba(255, 159, 64, 1)',
             ],
-            borderWidth: 1,
+            borderWidth: 2,
             hoverOffset: 10
           },
         ],
@@ -47,7 +75,7 @@ const PieChart = (props: any) => {
     
     }); */
 
-    return <Doughnut style={{width: "300px", height: "100px"}}  data={data} />
+    return <Bar options={options}  data={data} />
     
     
 }
