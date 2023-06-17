@@ -22,7 +22,7 @@ export async function POST(request: Request) {
             SELECT COUNT(A.ID) AS CLASSIFIED_TODAY,
             (SELECT COUNT(A.ID)
             FROM ANSWERS A
-            WHERE A.CLASSIFIED_BY = 4
+            WHERE A.CLASSIFIED_BY = $1
             AND STATUS = '2') AS CLASSIFIED_TOTAL,
             (SELECT COUNT(*)
             FROM ANSWERS B
