@@ -60,6 +60,23 @@ const Report = () => {
 
                                 </p>
 
+
+                                <div className='bg-orange-300 mt-4 mb-8 relative shadow-md justify-around items-center flex w-10/12 mx-auto md:w-3/12 py-5 rounded-lg'>
+                                    <span className='rounded-full text-orange-300 px-2 py-2 bg-orange-500'>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+
+                                    </span>
+
+                                    <div>
+                                        <p className='text-orange-600 text-sm'> Calificados <strong>últimos 4 días</strong>  </p>
+                                        <p className='text-orange-800 text-center font-semibold text-xl'>{data.classified_four_days ? data.classified_four_days : 0}</p>
+                                    </div>
+                                </div>
+
+
+
                                 <div className='bg-sky-300 mt-4 mb-8 relative shadow-md justify-around items-center flex w-10/12 mx-auto md:w-3/12 py-5 rounded-lg'>
                                     <span className='rounded-full text-sky-300 px-2 py-2 bg-sky-500'>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -69,7 +86,7 @@ const Report = () => {
                                     </span>
 
                                     <div>
-                                        <p className='text-sky-600 text-sm'> Mensajes calificados <strong>hoy</strong>  </p>
+                                        <p className='text-sky-600 text-sm'> Calificados <strong>hoy</strong>  </p>
                                         <p className='text-sky-800 text-center font-semibold text-xl'>{data.classified_today ? data.classified_today : 0}</p>
                                     </div>
                                 </div>
@@ -82,7 +99,7 @@ const Report = () => {
                                     </span>
 
                                     <div>
-                                        <p className='text-green-600 text-sm'> <strong>Total</strong>  de mensajes calificados </p>
+                                        <p className='text-green-600 text-sm'> <strong>Total</strong>  de calificados </p>
                                         <p className='text-green-800 text-center font-semibold text-xl'>{data.classified_total ? data.classified_total : 0}</p>
                                     </div>
                                 </div>
