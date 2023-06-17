@@ -6,8 +6,8 @@ import { AuthHOC } from '@/components/auth/AuthHOC'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-
-
+import moment from 'moment'
+import 'moment/locale/es'
 
 const Admin = () => {
     const [show, setShow] = useState(false)
@@ -17,6 +17,8 @@ const Admin = () => {
     const [dataUsers, setDataUser] = useState<any>([])
     // data promedio por hora
     const [average, setAverage] = useState<any>([])
+    // data usuario por dia
+    const [userPerDay, setUserPerDay] = useState<any>([])
 
     const { push } = useRouter()
 
@@ -36,6 +38,7 @@ const Admin = () => {
             getClassifiedMessages()
             getMessagesByUser()
             getAverageByUser()
+            getUserAnswersToday()
         }
     }, [show])
 
@@ -54,6 +57,12 @@ const Admin = () => {
         const data = await axios.get("/api/answers/average")
         setAverage(data.data.values)
     }
+
+    const getUserAnswersToday = async () => {
+        const data = await axios.get("/api/answers/user-day")
+        setUserPerDay(data.data.values)
+    }
+
 
 
     const styles = [{
@@ -236,6 +245,11 @@ const Admin = () => {
                 </div>
             </div>
 
+            <div className='md:w-8/12  px-10 my-10 bg-white mx-auto overflow-hidden items-center justify-center hidden md:flex flex-col w-10/12 h-auto rounded-lg shadow-md '>
+                <div className='w-11/12 mx-auto flex items-center'>
+                    <BarChart label="Respuestas" title={`Repuestas por usuario | ${moment().format("L")}`} data={userPerDay} />
+                </div>
+            </div>
 
 
 
