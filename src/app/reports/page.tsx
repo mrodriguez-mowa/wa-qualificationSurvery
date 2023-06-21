@@ -109,7 +109,7 @@ const Report = () => {
                             <div className='w-10/12 my-10 text-center  mx-auto'>
 
                                 <p>
-                                    Recuerda que la meta diaria son <strong>1600 mensajes </strong> 🤖
+                                    Recuerda que la meta diaria son <strong>{data?.daily_goal} mensajes </strong> 🤖
                                 </p>
 
                             </div>

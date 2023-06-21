@@ -20,21 +20,23 @@ export async function POST(request: Request) {
 
             const res = await connection.query(`
             SELECT COUNT(A.ID) AS CLASSIFIED_TODAY,
-            (SELECT COUNT(A.ID)
+                (SELECT COUNT(A.ID)
+                    FROM ANSWERS A
+                    WHERE A.CLASSIFIED_BY = $1
+                    AND A.STATUS = '2') AS CLASSIFIED_TOTAL,
+                (SELECT COUNT(*)
+                    FROM ANSWERS B
+                    WHERE B.CLASSIFIED_BY = $1
+                    AND DATE_TRUNC('day', B.CLASSIFIED_AT) BETWEEN CURRENT_DATE - INTERVAL '4 days' AND CURRENT_DATE
+                    AND B.STATUS = '2') AS LAST_FOUR_DAYS,
+                U.DAILY_GOAL
             FROM ANSWERS A
-            WHERE A.CLASSIFIED_BY = $1
-            AND STATUS = '2') AS CLASSIFIED_TOTAL,
-            (SELECT COUNT(*)
-            FROM ANSWERS B
-            WHERE B.CLASSIFIED_BY = $1
-            AND DATE_TRUNC('day',
-            B.CLASSIFIED_AT) BETWEEN CURRENT_DATE-4 AND CURRENT_DATE
-            AND B.STATUS = '2' ) AS LAST_FOUR_DAYS
-            FROM ANSWERS A
-            WHERE A.CLASSIFIED_BY = $1
-            AND DATE_TRUNC('day',
-            CLASSIFIED_AT) = CURRENT_DATE
-            AND STATUS = '2'
+            INNER JOIN USERS U ON U.ID = A.CLASSIFIED_BY
+            WHERE U.ID = $1
+            AND DATE_TRUNC('day', A.CLASSIFIED_AT) = CURRENT_DATE
+            AND A.STATUS = '2'
+            GROUP BY U.DAILY_GOAL;
+
             `, [id])
 
             if (res.rowCount > 0) {
@@ -45,6 +47,7 @@ export async function POST(request: Request) {
                         classified_today: res.rows[0].classified_today,
                         classified_total: res.rows[0].classified_total,
                         classified_four_days: res.rows[0].last_four_days,
+                        daily_goal: res.rows[0].daily_goal,
                         name: userData.rows[0].name,
                         lastname: userData.rows[0].lastname
                     }
