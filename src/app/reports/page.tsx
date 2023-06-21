@@ -42,21 +42,21 @@ const Report = () => {
 
 
                                 <ProgressBar
-                                    progress={data.classified_today && data.classified_today != 0 ? (data.classified_today / 1600) * 100 : 0}
+                                    progress={data.classified_today && data.classified_today != 0 ? (data.classified_today / data.daily_goal) * 100 : 0}
                                     radius={75}
                                     className='mx-auto'
                                     strokeColor="#5d9cec"
 
                                 >
                                     <span className='your-indicator font-semibold'>
-                                        {data.classified_today && data.classified_today != 0 ? Math.floor((data.classified_today / 1600) * 100) : 0} %
+                                        {data.classified_today && data.classified_today != 0 ? Math.floor((data.classified_today / data.daily_goal) * 100) : 0} %
                                     </span>
                                 </ProgressBar>
 
                                 <p className='my-4 text-center'>
 
                                     Tu estado es:
-                                    {data.classified_today == 1600 ? <span className="bg-green-100 text-green-800 text-xs font-medium  mx-4 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Logrado</span> : <span className="bg-yellow-100 text-yellow-800 text-xs font-medium mx-4 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">En curso</span>}
+                                    {data.classified_today == data?.daily_goal ? <span className="bg-green-100 text-green-800 text-xs font-medium  mx-4 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Logrado</span> : <span className="bg-yellow-100 text-yellow-800 text-xs font-medium mx-4 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">En curso</span>}
 
                                 </p>
 
