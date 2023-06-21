@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
-import 'moment/locale/es'
+
 
 const Admin = () => {
     const [show, setShow] = useState(false)
@@ -21,6 +21,8 @@ const Admin = () => {
     const [userPerDay, setUserPerDay] = useState<any>([])
 
     const { push } = useRouter()
+
+    const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
     useEffect(() => {
         const isAdmin = localStorage.getItem("isAdmin") == "true"
@@ -38,7 +40,7 @@ const Admin = () => {
             getClassifiedMessages()
             getMessagesByUser()
             getAverageByUser()
-            getUserAnswersToday()
+            getUserAnswersToday(date)
         }
     }, [show])
 
@@ -58,8 +60,10 @@ const Admin = () => {
         setAverage(data.data.values)
     }
 
-    const getUserAnswersToday = async () => {
-        const data = await axios.get("/api/answers/user-day")
+    const getUserAnswersToday = async (date:any) => {
+        const data = await axios.post("/api/answers/user-day", {
+            date
+        })
         setUserPerDay(data.data.values)
     }
 
@@ -246,8 +250,14 @@ const Admin = () => {
             </div>
 
             <div className='md:w-8/12  px-10 my-10 bg-white mx-auto overflow-hidden items-center justify-center hidden md:flex flex-col w-10/12 h-auto rounded-lg shadow-md '>
+                <input className='border-2 px-4 my-4 rounded-lg' type="date" onChange={(e)=>{
+                    const datex = e.target.value
+                    
+                    setDate(datex)
+                    getUserAnswersToday(datex)
+                }} value={date} />
                 <div className='w-11/12 mx-auto flex items-center'>
-                    <BarChart label="Respuestas" title={`Repuestas por usuario | ${moment().format("L")}`} data={userPerDay} />
+                    <BarChart label="Respuestas" title={`Repuestas por usuario | ${moment(date).format('DD-MM-YYYY')}`} data={userPerDay} />
                 </div>
             </div>
 
