@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     try {
         console.log("ENTRO A REPORTE")
         
-        const { id } = await request.json()
+        const { id, date } = await request.json()
         console.log("Reports User", id)
 
         const connection = await connectDb()
@@ -33,9 +33,9 @@ export async function POST(request: Request) {
             FROM ANSWERS A
             WHERE A.CLASSIFIED_BY = $1
             AND DATE_TRUNC('day',
-            CLASSIFIED_AT) = CURRENT_DATE
+            CLASSIFIED_AT) = $2
             AND STATUS = '2'
-            `, [id])
+            `, [id, date])
 
             if (res.rowCount > 0) {
                
