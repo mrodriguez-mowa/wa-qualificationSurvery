@@ -13,7 +13,7 @@ const Header = ({ title }: IHeader) => {
           <MenuDropdown />
         </div>
       </div>
-      <img className='h-10' src='https://www.mowa.com.pe/wp-content/uploads/2021/02/logo-mowa-consultora.png' />
+      <img className='h-10' src='/assets/mowa_logo.png' />
       <h1 className='my-4'>{title}</h1>
     </div>
   )
