@@ -15,7 +15,7 @@ export async function GET(request: Request) {
             FROM   generate_series(1, 1100) g
             ) r
             JOIN  answers USING (id)
-            WHERE status is null and new_type is null AND current_type in ('NO DESEADO', 'NEGATIVO', 'NO APLICA')
+            WHERE status is null and new_type is null AND current_type in ('NEGATIVO', 'NO APLICA')
             LIMIT  1;
             `)
 
